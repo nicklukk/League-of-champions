@@ -77,7 +77,7 @@ class Team(models.Model):
 
 class Player(models.Model):
     name = models.CharField(max_length=28)
-    surname = models.CharField(max_length=28)
+    surname = models.CharField(max_length=28, blank=True, default=None, null=True)
     position = models.ForeignKey(Position, blank=True, default=None, null=True)
     team = models.ForeignKey(Team, blank=True, default=None, null=True)
     number = models.PositiveIntegerField(blank=True, default=None, null=True)
