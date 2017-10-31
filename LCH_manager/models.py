@@ -59,7 +59,8 @@ class Group(models.Model):
 
 
 class Team(models.Model):
-    name = models.CharField(max_length=56, primary_key=True)
+    id = models.IntegerField(default=0, primary_key=True)
+    name = models.CharField(max_length=56)
     city = models.ForeignKey(City, blank=True, default=None, null=True)
     year_of_foundation = models.PositiveIntegerField(blank=True, default=None, null=True)
     coach = models.ForeignKey(Coach, blank=True, default=None, null=True)
