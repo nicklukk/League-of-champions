@@ -59,7 +59,7 @@ class Group(models.Model):
 
 
 class Team(models.Model):
-    id = models.IntegerField(default=0, primary_key=True)
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=56)
     city = models.ForeignKey(City, blank=True, default=None, null=True)
     year_of_foundation = models.PositiveIntegerField(blank=True, default=None, null=True)
@@ -114,7 +114,7 @@ class Statistic(models.Model):
     bombardiers = models.ManyToManyField(GoalsToPlayer, blank=True, default=None)
 
     def __str__(self):
-        return "%s %s %s" % (self.goals, self.yellow_cards, self.red_cards)
+        return "%s" % self.goals
 
     class Meta:
         verbose_name = "Statistic"
