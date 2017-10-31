@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
 class Country(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
 
@@ -17,7 +17,7 @@ class City(models.Model):
     country = models.ForeignKey(Country, blank=True, default=None, null=True)
 
     def __str__(self):
-        return "%s" % (self.name)
+        return "%s" % self.name
 
     class Meta:
         verbose_name = "City"
@@ -112,6 +112,7 @@ class Statistic(models.Model):
     red_cards = models.IntegerField(default=0)
     position = models.IntegerField(default=50, null=True)
     bombardiers = models.ManyToManyField(GoalsToPlayer, blank=True, default=None)
+
     def __str__(self):
         return "%s %s %s" % (self.goals, self.yellow_cards, self.red_cards)
 
