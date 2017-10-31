@@ -2,34 +2,34 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-# class CountryAdmin(admin.ModelAdmin):
-#     list_display = [field.name for field in Country._meta.fields]
-#
-#     class Meta:
-#         model = Country
-#
-#
-# admin.site.register(Country, CountryAdmin)
-#
-#
-# class CityAdmin(admin.ModelAdmin):
-#     list_display = [field.name for field in City._meta.fields]
-#
-#     class Meta:
-#         model = City
-#
-#
-# admin.site.register(City, CityAdmin)
-#
-#
-# class PositionAdmin(admin.ModelAdmin):
-#     list_display = [field.name for field in Position._meta.fields]
-#
-#     class Meta:
-#         model = Position
-#
-#
-# admin.site.register(Position, PositionAdmin)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Country._meta.fields]
+
+    class Meta:
+        model = Country
+
+
+admin.site.register(Country, CountryAdmin)
+
+
+class CityAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in City._meta.fields]
+
+    class Meta:
+        model = City
+
+
+admin.site.register(City, CityAdmin)
+
+
+class PositionAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Position._meta.fields]
+
+    class Meta:
+        model = Position
+
+
+admin.site.register(Position, PositionAdmin)
 
 
 class PlayerAdmin(admin.ModelAdmin):
@@ -42,14 +42,14 @@ class PlayerAdmin(admin.ModelAdmin):
 admin.site.register(Player, PlayerAdmin)
 
 
-# class CoachAdmin(admin.ModelAdmin):
-#     list_display = [field.name for field in Coach._meta.fields]
-#
-#     class Meta:
-#         model = Coach
-#
-#
-# admin.site.register(Coach, CoachAdmin)
+class CoachAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Coach._meta.fields]
+
+    class Meta:
+        model = Coach
+
+
+admin.site.register(Coach, CoachAdmin)
 
 
 class TeamAdmin(admin.ModelAdmin):
@@ -70,3 +70,23 @@ class MatchAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Match, MatchAdmin)
+
+
+class StatisticAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Statistic._meta.fields]
+
+    class Meta:
+        model = Statistic
+
+
+admin.site.register(Statistic, StatisticAdmin)
+
+
+class GoalsAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in GoalsToPlayer._meta.fields]
+
+    class Meta:
+        model = GoalsToPlayer
+
+
+admin.site.register(GoalsToPlayer, GoalsAdmin)
