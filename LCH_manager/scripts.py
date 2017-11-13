@@ -1,5 +1,6 @@
 from .models import *
 import random
+import operator
 from faker import Faker
 
 
@@ -22,3 +23,39 @@ def positions_for_players():
             pos = positions.pop()
             player.position = pos
             player.save(force_update=True)
+
+
+def chance(d):
+    roll = random.randint(1, 100)
+    print(roll)
+    sorted_dict = sorted(d.items(), key=operator.itemgetter(1))
+    acc = 0
+    for el in sorted_dict:
+        acc += el[1]
+        if(acc >= roll):
+            return el[0]
+
+
+def statistic():
+    matches = Match.objects.all()
+    teams = Team.objects.all()
+    players = Player.objects.all()
+    file = open(r"static\qaz.txt", "r", encoding="UTF-8")
+    for line in file:
+        arr = line.split("_")
+        id = int(arr[1])
+        match = matches.get(id=id)
+        t1 = teams.get(name=arr[2])
+        t2 = teams.get(name=arr[3])
+        g1 = int(arr[4])
+        g2 = int(arr[5])
+        for goal in range(g1):
+            position = chance({ 0:1, 1:20, 2:29, 3:50 })
+            p = players.filter(team=t1, position=position)
+            player = random.choice(p)
+            EventsToMatch.objects.create(event=0, player=player, match=match, minute=random.randint(1,90))
+        for goal in range(g2):
+            position = chance({ 0:1, 1:20, 2:29, 3:50 })
+            p = players.filter(team=t2, position=position)
+            player = random.choice(p)
+            EventsToMatch.objects.create(event=0, player=player, match=match, minute=random.randint(1,90))
