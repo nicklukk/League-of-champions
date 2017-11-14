@@ -43,7 +43,8 @@ class Team(models.Model):
     year_of_foundation = models.PositiveIntegerField(blank=True, default=None, null=True)
     coach = models.ForeignKey(Coach, blank=True, default=None, null=True)
     basket_index = models.PositiveIntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4),))
-    group = models.PositiveSmallIntegerField(choices=GROUP_CHOICES, blank=True, null=True, default=None)
+    group = models.CharField(choices=GROUP_CHOICES, blank=True, null=True, default=None, max_length=1)
+    is_in_tournament = models.BooleanField(default=True)
     image = models.ImageField(upload_to='images/', blank=True, null=True, default=None)
 
     def __str__(self):
