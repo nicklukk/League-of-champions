@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Hello World!</h1>
+    <h1>
+        <a href="{% url 'player' player_id=1 %}">Varan</a>
+    </h1>
+    <h1 style="margin-left: 30px">
+        <a href="{% url 'team' team_id=2 %}">team</a>
+    </h1>
+    <h1>
+        <a href="{% url 'match' match_id=58 %}">match</a>
+    </h1>
+{% endblock %}

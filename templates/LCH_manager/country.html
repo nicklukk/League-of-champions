@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ country }}</h1>
+    {% for team in teams %}
+        <div>{{ team }}</div>
+    {% endfor %}
+
+{% endblock %}
