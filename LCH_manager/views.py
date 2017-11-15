@@ -29,15 +29,17 @@ def country(request, country_name):
 
 
 def leader_board(request, top):
-    bombardiers = EventsToMatch.objects.filter(event='0') \
-                      .values('player') \
-                      .annotate(goals_num=Count('id')).order_by('-goals_num')[:int(top)]
-    players = []
-    i = 0
-    for el in bombardiers:
-        player = Player.objects.get(id=el['player'])
-        i += 1
-        players.append({'player': player, 'goals': el['goals_num'], 'num': i})
+    bombardiers = EventsToMatch.objects.filter(event='Goal') \
+            .values_list('player__name', 'player__surname', 'player__id',
+                         'player__team__id', 'player__team__name') \
+            .annotate(goals_num=Count('id')).order_by('-goals_num')[:int(top)]
+
+    # players = []
+    # i = 0
+    # for el in bombardiers:
+    #     player = Player.objects.get(id=el['player'])
+    #     i += 1
+    #     players.append({'player': player, 'goals': el['goals_num'], 'num': i})
     # raw = '''SELECT name, surname, COUNT(LCH_manager_eventstomatch.id) AS goals FROM LCH_manager_eventstomatch
     #       JOIN LCH_manager_player ON LCH_manager_eventstomatch.player_id = LCH_manager_player.id
     #       GROUP BY player_id

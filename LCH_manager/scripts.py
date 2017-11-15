@@ -32,7 +32,7 @@ def chance(d):
     acc = 0
     for el in sorted_dict:
         acc += el[1]
-        if(acc >= roll):
+        if acc >= roll:
             return el[0]
 
 
@@ -50,12 +50,36 @@ def statistic():
         g1 = int(arr[4])
         g2 = int(arr[5])
         for goal in range(g1):
-            position = chance({ 0:1, 1:20, 2:29, 3:50 })
+            position = chance({0: 1, 1: 20, 2: 29, 3: 50})
             p = players.filter(team=t1, position=position)
             player = random.choice(p)
-            EventsToMatch.objects.create(event=0, player=player, match=match, minute=random.randint(1,90))
+            EventsToMatch.objects.create(event=0, player=player, match=match, minute=random.randint(1, 90))
         for goal in range(g2):
-            position = chance({ 0:1, 1:20, 2:29, 3:50 })
+            position = chance({0: 1, 1: 20, 2: 29, 3: 50})
             p = players.filter(team=t2, position=position)
             player = random.choice(p)
-            EventsToMatch.objects.create(event=0, player=player, match=match, minute=random.randint(1,90))
+            EventsToMatch.objects.create(event=0, player=player, match=match, minute=random.randint(1, 90))
+
+
+def positions():
+    players = Player.objects.all()
+    file = open(r"static\txt_files\players.txt", 'r')
+    i = 0
+    for line in file:
+        arr = line.split("_")
+        idd = arr[1]
+        p = arr[2]
+        pos = ''
+        if p == '0':
+            pos = 'Goalkeeper'
+        elif p == '1':
+            pos = 'Defender'
+        elif p == '2':
+            pos = 'Midfielder'
+        elif p == '3':
+            pos = 'Forward'
+        i += 1
+        player = players.get(id=int(idd))
+        player.position = pos
+        player.save(force_update=True)
+        print("OK " + i.__str__())

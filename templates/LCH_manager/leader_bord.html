@@ -3,18 +3,24 @@
 {% block content %}
     <div class="container-fluid">
         <table>
-
-            {% for p in players %}
-
+            {% for p in bombardiers %}
                 <tr>
                     <td>
-                        {{ p.num }}
+                        {{ forloop.counter }}
                     </td>
                     <td>
-                        {{ p.player }}
+                        <a href="{% url 'player' player_id=p.2 %}">
+                            {{ p.0 }}
+                            {% if p.1 %}
+                                {{ p.1 }}
+                            {% endif %}
+                        </a>
                     </td>
                     <td>
-                        {{ p.goals }}
+                        <a href="{% url 'team' team_id=p.3 %}">{{ p.4 }}</a>
+                    </td>
+                    <td>
+                        {{ p.5 }}
                     </td>
                 </tr>
             {% endfor %}

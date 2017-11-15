@@ -1,16 +1,3 @@
-POSITION_CHOICES = (
-    ('GOALKEEPER', 'Goalkeeper'),
-    ('DEFENDER', 'Defender'),
-    ('MIDFIELDER', 'Midfielder'),
-    ('FORWARD', 'Forward'),
-)
-
-EVENT_CHOICES = (
-    ('GOAL', 'Goal'),
-    ('YELLOW_CARD', 'Yellow card'),
-    ('RED_CARD', 'Red card'),
-)
-
 GROUP_CHOICES = (
     ('A', 'A'),
     ('B', 'B'),
@@ -20,4 +7,17 @@ GROUP_CHOICES = (
     ('F', 'F'),
     ('G', 'G'),
     ('H', 'H'),
+)
+
+POSITION_CHOICES = (
+    ('Goalkeeper', 'Goalkeeper'),
+    ('Defender', 'Defender'),
+    ('Midfielder', 'Midfielder'),
+    ('Forward', 'Forward'),
+)
+
+EVENT_CHOICES = (
+    ('Goal', 'Goal'),
+    ('Yellow card', 'Yellow card'),
+    ('Red card', 'Red card'),
 )
