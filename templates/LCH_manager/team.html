@@ -2,4 +2,36 @@
 
 {% block content %}
     <h1>{{ team }}</h1>
+    <div class="container-fluid">
+        <table>
+            <th>
+                Player
+            </th>
+            <th>
+                Position
+            </th>
+            <th>
+                Motherland
+            </th>
+            {% for player in players %}
+                <tr>
+                    <td>
+                        {{ player.name }}
+                        {% if player.surname %}
+                            {{ player.surname }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ player.position }}
+                    </td>
+                    <td>
+                        {{ player.motherland }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        <img src="{{ team.image.url }}" alt="{{ team.image.url }}">
+    </div>
 {% endblock %}

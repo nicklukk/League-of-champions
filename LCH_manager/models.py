@@ -45,7 +45,7 @@ class Team(models.Model):
     basket_index = models.PositiveIntegerField(choices=((1, 1), (2, 2), (3, 3), (4, 4),))
     group = models.CharField(choices=GROUP_CHOICES, blank=True, null=True, default=None, max_length=1)
     is_in_tournament = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='images/', blank=True, null=True, default=None)
+    image = models.ImageField(upload_to='images/teams/', blank=True, null=True, default=None)
 
     def __str__(self):
         return "%s" % (self.name,)
@@ -65,6 +65,7 @@ class Player(models.Model):
     is_a_captain = models.BooleanField(default=False)
     birthday = models.DateField(blank=True, default=None, null=True)
     motherland = models.ForeignKey(Country, blank=True, default=None, null=True)
+    image = models.ImageField(upload_to='images/players/', blank=True, null=True, default=None)
 
     def __str__(self):
         return "%s %s" % (self.name, self.surname)

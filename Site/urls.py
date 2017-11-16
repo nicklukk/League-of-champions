@@ -17,8 +17,12 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from LCH_manager.views import home_page as home
+
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', home, name='home_page'),
     url(r'^league/', include('LCH_manager.urls')),
 ]\
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\

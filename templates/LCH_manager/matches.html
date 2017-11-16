@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <table>
-        {% for match in matches %}
-            <tr>
-                <td>
-                    {{ match }}
-                </td>
-            <td>
-                {{ match.tour }}
-            </td>
-            <td>
-                {{ match.host_team.group }}
-            </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="container-fluid">
+        <table>
+            {% for match in matches %}
+                <tr>
+                    <td>
+                        {{ match }}
+                    </td>
+                    <td>
+                        {{ match.tour }}
+                    </td>
+                    <td>
+                        {{ match.host_team.group }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

@@ -4,6 +4,7 @@ from .models import *
 
 
 def home_page(request):
+    teams = Team.objects.all()
     return render(request, 'LCH_manager/home_page.html', locals())
 
 
@@ -14,6 +15,9 @@ def player(request, player_id):
 
 def team(request, team_id):
     team = Team.objects.get(id=team_id)
+    players = Player.objects.filter(team=team)
+    order = ['Forward', 'Midfielder', 'Defender', 'Goalkeeper']
+    players = sorted(players, key=lambda x: order.index(x.position))
     return render(request, 'LCH_manager/team.html', locals())
 
 
@@ -30,16 +34,9 @@ def country(request, country_name):
 
 def leader_board(request, top):
     bombardiers = EventsToMatch.objects.filter(event='Goal') \
-            .values_list('player__name', 'player__surname', 'player__id',
-                         'player__team__id', 'player__team__name') \
-            .annotate(goals_num=Count('id')).order_by('-goals_num')[:int(top)]
-
-    # players = []
-    # i = 0
-    # for el in bombardiers:
-    #     player = Player.objects.get(id=el['player'])
-    #     i += 1
-    #     players.append({'player': player, 'goals': el['goals_num'], 'num': i})
+                      .values_list('player__name', 'player__surname', 'player__id',
+                                   'player__team__id', 'player__team__name') \
+                      .annotate(goals_num=Count('id')).order_by('-goals_num')[:int(top)]
     # raw = '''SELECT name, surname, COUNT(LCH_manager_eventstomatch.id) AS goals FROM LCH_manager_eventstomatch
     #       JOIN LCH_manager_player ON LCH_manager_eventstomatch.player_id = LCH_manager_player.id
     #       GROUP BY player_id
@@ -50,3 +47,8 @@ def leader_board(request, top):
 def matches(request):
     matches = Match.objects.all().order_by('-tour', 'host_team__group')
     return render(request, 'LCH_manager/matches.html', locals())
+
+
+def automatization(request):
+    teams = Team.objects.all()
+    teams.values('')
