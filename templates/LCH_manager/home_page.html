@@ -11,9 +11,4 @@
     <h1>
         <a href="{% url 'match' match_id=58 %}">match</a>
     </h1>
-    {% for i in teams %}
-        <div>
-            <img src="{{ i.image.url }}" alt="">
-        </div>
-    {% endfor %}
 {% endblock %}

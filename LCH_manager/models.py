@@ -59,7 +59,7 @@ class Player(models.Model):
     name = models.CharField(max_length=28)
     surname = models.CharField(max_length=28, blank=True, default=None, null=True)
     position = models.CharField(choices=POSITION_CHOICES,
-                                                blank=True, null=True, default=None, max_length=28)
+                                blank=True, null=True, default=None, max_length=28)
     team = models.ForeignKey(Team, blank=True, default=None, null=True)
     number = models.PositiveIntegerField(blank=True, default=None, null=True)
     is_a_captain = models.BooleanField(default=False)
@@ -96,9 +96,20 @@ class EventsToMatch(models.Model):
     minute = models.IntegerField(default=1)
 
     def __str__(self):
-        return "%s %s %s %s" % (self.event, self.player.name + " " + self.player.surname,
-                                self.match, self.minute)
+        return "%s %s %s %s" % (self.event, self.player, self.match, self.minute)
 
     class Meta:
         verbose_name = "Event in match"
         verbose_name_plural = "Events in matches"
+
+
+class Conflicts(models.Model):
+    country_1 = models.ForeignKey(Country)
+    country_2 = models.ForeignKey(Country, related_name='guests_of_match')
+
+    def __str__(self):
+        return "%s %s" % (self.country_1, self.country_2)
+
+    class Meta:
+        verbose_name = "Conflict"
+        verbose_name_plural = "Conflicts"

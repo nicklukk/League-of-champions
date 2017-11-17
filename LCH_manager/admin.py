@@ -70,3 +70,13 @@ class EventsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(EventsToMatch, EventsAdmin)
+
+
+class ConflictsAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Conflicts._meta.fields]
+
+    class Meta:
+        model = Conflicts
+
+
+admin.site.register(Conflicts, ConflictsAdmin)

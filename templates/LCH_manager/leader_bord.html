@@ -2,7 +2,23 @@
 
 {% block content %}
     <div class="container-fluid">
-        <table>
+        <table class="table">
+            <thead class="thead-inverse">
+            <tr>
+                <th>
+                    №
+                </th>
+                <th>
+                    Player
+                </th>
+                <th>
+                    Team
+                </th>
+                <th>
+                    Goals count
+                </th>
+            </tr>
+            </thead>
             {% for p in bombardiers %}
                 <tr>
                     <td>

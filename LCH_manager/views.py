@@ -1,10 +1,10 @@
 from django.db.models import Count
 from django.shortcuts import render
+import itertools
 from .models import *
 
 
 def home_page(request):
-    teams = Team.objects.all()
     return render(request, 'LCH_manager/home_page.html', locals())
 
 
@@ -51,4 +51,6 @@ def matches(request):
 
 def automatization(request):
     teams = Team.objects.all()
-    teams.values('')
+    t = itertools.groupby(teams, lambda x: x.basket_index)
+
+
