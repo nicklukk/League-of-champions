@@ -1,6 +1,8 @@
-from .models import *
-import random
+import random, copy
 import operator
+from django.db.models import Q
+from .models import *
+from collections import defaultdict
 from faker import Faker
 
 
@@ -83,3 +85,44 @@ def positions():
         player.position = pos
         player.save(force_update=True)
         print("OK " + i.__str__())
+
+
+def grouping():
+    teams_by_baskets = defaultdict(list)
+    teams = copy.deepcopy(Team.objects.all())
+    for team in teams:
+        teams_by_baskets[team.basket_index].append(team)
+    teams_by_groups = defaultdict(list)
+    teams_by_groups.fromkeys(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', ])
+
+    for group in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', ]:
+        conflicts = []
+        for key in teams_by_baskets:
+            basket = teams_by_baskets[key]
+            filtered_group = copy.deepcopy(basket)
+            # removing teams with conflicts (filtering):
+            for team in filtered_group:
+                if team.city.country in conflicts:
+                    filtered_group.remove(team)
+            # print(conflicts)
+            team = random.choice(filtered_group)
+            basket.remove(team)
+            teams_by_groups[group].append(team)
+            # managing conflicts:
+            country = team.city.country
+            conflicts.append(country)
+            countries = Conflicts.objects.filter(Q(country_1=country) | Q(country_2=country))
+            for c in countries:
+                conflicts.append(c.get_other(country))
+
+    return sorted(teams_by_groups.items(), key=lambda t: t[0])
+
+
+def grouping_catch():
+    try:
+        res = grouping()
+        return res
+    except IndexError:
+        # print("error")
+        return grouping_catch()
+

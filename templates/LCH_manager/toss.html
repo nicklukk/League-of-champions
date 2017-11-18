@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for group in teams_by_groups %}
+        <div style="margin: 2%">
+            <div>
+                <h3>{{ group.0 }}</h3>
+            </div>
+            <table>
+                <tr>
+                    <th>
+                        Team
+                    </th>
+                    <th>
+                        Country
+                    </th>
+                </tr>
+                {% for team in group.1 %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'team' team_id=team.id %}">{{ team }}</a>
+                        </td>
+                        <td>
+                            {{ team.city.country }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endfor %}
+{% endblock %}

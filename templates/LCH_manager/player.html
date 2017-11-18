@@ -2,13 +2,13 @@
 
 {% load static %}
 {% block content %}
-    <h1>{{ player.name }} 11221 {{ player.surname }}</h1>
-    
+    <h1>{{ player.name }} {{ player.surname }}</h1>
+
     {% if player.image %}
         <div>
             <img src="{{ player.image.url }}" alt="">
         </div>
-        {% else %}
+    {% else %}
         <div style="height: 500px; width: 375px">
             <img src="{% static 'img/osel.jpg' %}" alt="">
         </div>

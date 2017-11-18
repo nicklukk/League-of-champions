@@ -110,6 +110,12 @@ class Conflicts(models.Model):
     def __str__(self):
         return "%s %s" % (self.country_1, self.country_2)
 
+    def get_other(self, country):
+        if country == self.country_1:
+            return self.country_2
+        else:
+            return self.country_1
+
     class Meta:
         verbose_name = "Conflict"
         verbose_name_plural = "Conflicts"

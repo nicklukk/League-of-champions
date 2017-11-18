@@ -1,6 +1,6 @@
 from django.db.models import Count
 from django.shortcuts import render
-import itertools
+from .scripts import grouping_catch
 from .models import *
 
 
@@ -10,6 +10,8 @@ def home_page(request):
 
 def player(request, player_id):
     player = Player.objects.get(id=player_id)
+    if request.POST:
+        player()
     return render(request, 'LCH_manager/player.html', locals())
 
 
@@ -18,6 +20,7 @@ def team(request, team_id):
     players = Player.objects.filter(team=team)
     order = ['Forward', 'Midfielder', 'Defender', 'Goalkeeper']
     players = sorted(players, key=lambda x: order.index(x.position))
+    nationalities = Player.objects.filter(team=team).values_list("motherland").annotate(Count("id"))
     return render(request, 'LCH_manager/team.html', locals())
 
 
@@ -37,10 +40,6 @@ def leader_board(request, top):
                       .values_list('player__name', 'player__surname', 'player__id',
                                    'player__team__id', 'player__team__name') \
                       .annotate(goals_num=Count('id')).order_by('-goals_num')[:int(top)]
-    # raw = '''SELECT name, surname, COUNT(LCH_manager_eventstomatch.id) AS goals FROM LCH_manager_eventstomatch
-    #       JOIN LCH_manager_player ON LCH_manager_eventstomatch.player_id = LCH_manager_player.id
-    #       GROUP BY player_id
-    #       ORDER BY COUNT(LCH_manager_eventstomatch.id) DESC '''
     return render(request, 'LCH_manager/leader_bord.html', locals())
 
 
@@ -50,7 +49,5 @@ def matches(request):
 
 
 def automatization(request):
-    teams = Team.objects.all()
-    t = itertools.groupby(teams, lambda x: x.basket_index)
-
-
+    teams_by_groups = grouping_catch()
+    return render(request, 'LCH_manager/toss.html', locals())

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block content %}
+    <div id="national" data-nat="{{ nationalities }}"></div>
     <h1>{{ team }}</h1>
     <div class="container-fluid">
         <table>
@@ -16,10 +18,12 @@
             {% for player in players %}
                 <tr>
                     <td>
-                        {{ player.name }}
-                        {% if player.surname %}
-                            {{ player.surname }}
-                        {% endif %}
+                        <a href="{% url 'player' player_id=player.id %}">
+                            {{ player.name }}
+                            {% if player.surname %}
+                                {{ player.surname }}
+                            {% endif %}
+                        </a>
                     </td>
                     <td>
                         {{ player.position }}
@@ -34,4 +38,8 @@
     <div>
         <img src="{{ team.image.url }}" alt="{{ team.image.url }}">
     </div>
+
+    <div id="chartContainer" style="width:600px; height: 600px"></div>
+
+    <script src="{% static 'javascript/diagrama.js' %}"></script>
 {% endblock %}
