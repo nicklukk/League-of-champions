@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^leader_board/(?P<top>\w+)/$', views.leader_board, name='leader_board'),
     url(r'^matches/$', views.matches, name='matches'),
     url(r'^toss/$', views.automatization, name='toss'),
+    url(r'^countries/$', views.countries, name='countries'),
 ]

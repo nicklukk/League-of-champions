@@ -68,7 +68,10 @@ class Player(models.Model):
     image = models.ImageField(upload_to='images/players/', blank=True, null=True, default=None)
 
     def __str__(self):
-        return "%s %s" % (self.name, self.surname)
+        if self.surname != None:
+            return "%s %s" % (self.name, self.surname)
+        else:
+            return "%s" % (self.name)
 
     class Meta:
         verbose_name = "Player"

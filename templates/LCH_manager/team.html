@@ -3,43 +3,158 @@
 {% load static %}
 {% block content %}
     <div id="national" data-nat="{{ nationalities }}"></div>
-    <h1>{{ team }}</h1>
-    <div class="container-fluid">
-        <table>
-            <th>
-                Player
-            </th>
-            <th>
-                Position
-            </th>
-            <th>
-                Motherland
-            </th>
+    <div class="header">
+        <b>{{ team }}</b>
+    </div>
+    <div class="left-part" style="margin-right: 10%">
+        <table class="table">
+            <caption class="caption">Список игроков в команде</caption>
+            <thead class="thead-inverse">
+            <tr>
+                <th>
+                    Игрок
+                </th>
+                <th>
+                    Номер
+                </th>
+                <th>
+                    Позиция
+                </th>
+                <th>
+                    Родина
+                </th>
+            </tr>
+            </thead>
             {% for player in players %}
                 <tr>
                     <td>
                         <a href="{% url 'player' player_id=player.id %}">
-                            {{ player.name }}
-                            {% if player.surname %}
-                                {{ player.surname }}
-                            {% endif %}
+                            {{ player }}
                         </a>
+                    </td>
+                    <td>
+                        {{ player.number }}
                     </td>
                     <td>
                         {{ player.position }}
                     </td>
                     <td>
-                        {{ player.motherland }}
+                        <a href="{% url 'country' country_name=player.motherland %}">
+                            {{ player.motherland }}
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
         </table>
     </div>
-    <div>
-        <img src="{{ team.image.url }}" alt="{{ team.image.url }}">
+    <div class="right-part">
+        <div>
+            <img src="{{ team.image.url }}" title="{{ team }} image">
+        </div>
+        <div style="margin-top: 5%; clear: both">
+            <table class="table">
+                <tr>
+                    <td>
+                        <b>Город</b>
+                    </td>
+                    <td>
+                        {{ team.city }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Страна</b>
+                    </td>
+                    <td>
+                        <a href="{% url 'country' country_name=team.city.country %}">
+                            {{ team.city.country }}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Тренер</b>
+                    </td>
+                    <td>
+                        {{ team.coach }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Капитан</b>
+                    </td>
+                    <td>
+                        <a href="{% url 'player' player_id=captain.id %}">
+                            {{ captain }}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Номер корзины</b>
+                    </td>
+                    <td>
+                        {{ team.basket_index }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Группа</b>
+                    </td>
+                    <td>
+                        {{ team.group }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Год основания</b>
+                    </td>
+                    <td>
+                        {{ team.year_of_foundation }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="left-part">
+        <table class="table">
+            <caption class="caption">Матчи команды<br> {{ team }}</caption>
+            <thead class="thead-inverse">
+            <tr>
+                <th>
+                    Хозяева
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    Гости
+                </th>
+            </tr>
+            </thead>
+            {% for match in matches_results %}
+                <tr>
+                    <td>
+                        <a href="{% url 'team' team_id=match.team1.id %}">
+                            {{ match.team1 }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'match' match_id=match.match_id %}">
+                            {{ match.goals1.count }} : {{ match.goals2.count }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'team' team_id=match.team2.id %}">
+                            {{ match.team2 }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 
-    <div id="chartContainer" style="width:600px; height: 600px"></div>
+    <div id="chartContainer" class="right-part" style="width:700px; height: 700px"></div>
 
     <script src="{% static 'javascript/diagrama.js' %}"></script>
 {% endblock %}

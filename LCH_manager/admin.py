@@ -2,6 +2,16 @@ from django.contrib import admin
 from .models import *
 
 
+class PlayerInline(admin.TabularInline):
+    model = Player
+    extra = 0
+
+
+class EventInline(admin.TabularInline):
+    model = EventsToMatch
+    extra = 0
+
+
 class CountryAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Country._meta.fields]
 
@@ -44,6 +54,7 @@ admin.site.register(Coach, CoachAdmin)
 
 class TeamAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Team._meta.fields]
+    inlines = [PlayerInline]
 
     class Meta:
         model = Team
@@ -54,6 +65,7 @@ admin.site.register(Team, TeamAdmin)
 
 class MatchAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Match._meta.fields]
+    inlines = [EventInline]
 
     class Meta:
         model = Match

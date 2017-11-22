@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="header">
+        <i>Отчет по странам и командам</i>
+    </div>
+    {% for country in countries.items %}
+        <div class="big-text header" style="display: block; text-align: left">
+            <a href="{% url 'country' country_name=country.0 %}">
+                {{ country.0 }}
+            </a>
+        </div>
+        {% for team in country.1 %}
+            <div style="display: inline; margin:3%">
+                <h4>
+                    <a href="{% url 'team' team_id=team.id %}">
+                        {{ team }}
+                    </a>
+                </h4>
+                <a href="{% url 'team' team_id=team.id %}">
+                    <img src="{{ team.image.url }}" title="{{ team }}">
+                </a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

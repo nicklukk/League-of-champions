@@ -1,7 +1,148 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1><a href="{% url 'team' team_id=match.host_team.id %}">{{ match.host_team.name }}</a></h1>
-    <h1> - </h1>
-    <h1><a href="{% url 'team' team_id=match.guest_team.id %}">{{ match.guest_team.name }}</a></h1>
+    <div class="header">
+        <a href="{% url 'team' team_id=match.host_team.id %}">{{ match.host_team.name }}</a>
+        <span>{{ information.goals1.count }}</span> - <span>{{ information.goals2.count }}</span>
+        <a href="{% url 'team' team_id=match.guest_team.id %}">{{ match.guest_team.name }}</a>
+    </div>
+    <div style="align-content: center">
+        <table style="border: none; background: none">
+            <tr>
+                <td class="bottom-line">
+                    <div>
+                        <a href="{% url 'team' team_id=match.host_team.id %}">
+                            <img class="logo" src="{{ match.host_team.image.url }}" alt="{{ match.host_team }}">
+                        </a>
+                    </div>
+                </td>
+                <td class="long-col bottom-line">
+                    Статистика матча
+                </td>
+                <td class="bottom-line">
+                    <div>
+                        <a href="{% url 'team' team_id=match.guest_team.id %}">
+                            <img class="logo" src="{{ match.guest_team.image.url }}" alt="{{ match.guest_team }}">
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            <tr style="background: none">
+                <td class="bottom-line text-center big-text small-col">
+                    <span>{{ information.goals1.count }}</span>
+                </td>
+                <td class="long-col bottom-line">
+                    Количество забитых мячей
+                </td>
+                <td class="bottom-line text-center big-text small-col">
+                    <span>{{ information.goals2.count }}</span>
+                </td>
+            </tr>
+            <tr style="background: none">
+                <td class="bottom-line text-center">
+                    {% ifequal information.goals1.count 0 %}
+                        <span class="big-text">-</span>
+                    {% endifequal %}
+                    {% for goal in information.goals1 %}
+                        <span><a href="{% url 'player' player_id=goal.player.id %}">{{ goal.player }}</a>
+                            {{ goal.minute }}'</span>
+                    {% endfor %}
+                </td>
+                <td class="long-col bottom-line">
+                    Кто забил
+                </td>
+                <td class="bottom-line text-center">
+                    {% ifequal information.goals2.count 0 %}
+                        <span class="big-text">-</span>
+                    {% endifequal %}
+                    {% for goal in information.goals2 %}
+                        <span><a href="{% url 'player' player_id=goal.player.id %}">{{ goal.player }}</a>
+                            {{ goal.minute }}'</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr style="background: none">
+                <td class="bottom-line text-center big-text">
+                    <span>{{ information.yellow1.count }}</span>
+                </td>
+                <td class="long-col bottom-line">
+                    Количество желтых карточек
+                </td>
+                <td class="bottom-line text-center big-text">
+                    <span>{{ information.yellow2.count }}</span>
+                </td>
+            </tr>
+            <tr style="background: none">
+                <td class="bottom-line text-center">
+                    {% ifequal information.yellow1.count 0 %}
+                        <span class="big-text">-</span>
+                    {% endifequal %}
+                    {% for goal in information.yellow1 %}
+                        <span><a href="{% url 'player' player_id=goal.player.id %}">{{ goal.player }}</a>
+                            {{ goal.minute }}'</span>
+                    {% endfor %}
+                </td>
+                <td class="long-col bottom-line">
+                    Кто получил желтую картоку
+                </td>
+                <td class="bottom-line text-center">
+                    {% ifequal information.yellow2.count 0 %}
+                        <span class="big-text">-</span>
+                    {% endifequal %}
+                    {% for goal in information.yellow2 %}
+                        <span><a href="{% url 'player' player_id=goal.player.id %}">{{ goal.player }}</a>
+                            {{ goal.minute }}'</span>
+                    {% endfor %}
+                </td>
+            </tr>
+                        <tr style="background: none">
+                <td class="bottom-line text-center big-text">
+                    <span>{{ information.red1.count }}</span>
+                </td>
+                <td class="long-col bottom-line">
+                    Количество красных карточек
+                </td>
+                <td class="bottom-line text-center big-text">
+                    <span>{{ information.red2.count }}</span>
+                </td>
+            </tr>
+            <tr style="background: none">
+                <td class="bottom-line text-center">
+                    {% ifequal information.red1.count 0 %}
+                        <span class="big-text">-</span>
+                    {% endifequal %}
+                    {% for goal in information.red1 %}
+                        <span><a href="{% url 'player' player_id=goal.player.id %}">{{ goal.player }}</a>
+                            {{ goal.minute }}'</span>
+                    {% endfor %}
+                </td>
+                <td class="long-col bottom-line">
+                    Кто получил красную картоку
+                </td>
+                <td class="bottom-line text-center">
+                    {% ifequal information.red2.count 0 %}
+                        <span class="big-text">-</span>
+                    {% endifequal %}
+                    {% for goal in information.red2 %}
+                        <span><a href="{% url 'player' player_id=goal.player.id %}">{{ goal.player }}</a>
+                            {{ goal.minute }}'</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr style="background: none">
+                <td></td>
+                <td class="long-col bottom-line">
+                    {{ match.tour }}
+                </td>
+                <td></td>
+            </tr>
+            <tr style="background: none">
+                <td></td>
+                <td class="long-col bottom-line">
+                    Матч прошел в городе {{ match.city }}
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}

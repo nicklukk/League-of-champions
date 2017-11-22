@@ -1,9 +1,11 @@
-import random, copy
+import copy
 import operator
-from django.db.models import Q
-from .models import *
+import random
 from collections import defaultdict
-from faker import Faker
+
+from django.db.models import Q
+
+from .models import *
 
 
 def city_for_match():
@@ -126,3 +128,34 @@ def grouping_catch():
         # print("error")
         return grouping_catch()
 
+
+def get_matches_results(matches_query):
+    results = []
+    for match in matches_query:
+        d = dict()
+        d["team1"] = match.host_team
+        d["team2"] = match.guest_team
+        d["goals1"] = EventsToMatch.objects.filter(match=match, event="Goal",
+                                                   player__team=match.host_team)
+        d["goals2"] = EventsToMatch.objects.filter(match=match, event="Goal",
+                                                   player__team=match.guest_team)
+        d["match_id"] = match.id
+        results.append(d)
+    return results
+
+
+def get_match_results(match):
+    results = dict()
+    results["goals1"] = EventsToMatch.objects.filter(match=match, event="Goal",
+                                                     player__team=match.host_team).order_by("minute")
+    results["goals2"] = EventsToMatch.objects.filter(match=match, event="Goal",
+                                                     player__team=match.guest_team).order_by("minute")
+    results["yellow1"] = EventsToMatch.objects.filter(match=match, event="Yellow card",
+                                                      player__team=match.host_team).order_by("minute")
+    results["yellow2"] = EventsToMatch.objects.filter(match=match, event="Yellow card",
+                                                      player__team=match.guest_team).order_by("minute")
+    results["red1"] = EventsToMatch.objects.filter(match=match, event="Red card",
+                                                   player__team=match.host_team).order_by("minute")
+    results["red2"] = EventsToMatch.objects.filter(match=match, event="Red card",
+                                                   player__team=match.guest_team).order_by("minute")
+    return results

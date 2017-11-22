@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     {% for group in teams_by_groups %}
         <div style="margin: 2%">
-            <div>
-                <h3>{{ group.0 }}</h3>
-            </div>
-            <table>
+            <table class="table">
+                <caption class="caption">{{ group.0 }}</caption>
+                <thead class="thead-inverse">
                 <tr>
                     <th>
                         Team
@@ -16,13 +14,16 @@
                         Country
                     </th>
                 </tr>
+                </thead>
                 {% for team in group.1 %}
                     <tr>
                         <td>
                             <a href="{% url 'team' team_id=team.id %}">{{ team }}</a>
                         </td>
                         <td>
-                            {{ team.city.country }}
+                            <a href="{% url 'country' country_name=team.city.country %}">
+                                {{ team.city.country }}
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
