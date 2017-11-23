@@ -9,6 +9,11 @@ body {
     font: 20px Arial, Helvatica, sans-serif;
 }
 
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
 .opacity-div {
     background: rgba(251, 255, 251, 0.7);
     border-radius: 0;
@@ -67,10 +72,8 @@ div {
 }
 
 .logo {
-    -o-object-fit: cover;
-    object-fit: cover;
     width: 200px;
-    height: 200px;
+    height: 240px;
 }
 
 .long-col{
