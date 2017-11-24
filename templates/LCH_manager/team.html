@@ -4,7 +4,7 @@
 {% block content %}
     <div id="national" data-nat="{{ nationalities }}"></div>
     <div class="header">
-        <b>{{ team }}</b>
+        {{ team|upper }}
     </div>
     <div class="left-part" style="margin-right: 10%">
         <table class="table">

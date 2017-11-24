@@ -1,8 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ country }}</h1>
-    {% for team in teams %}
-        <div>{{ team }}</div>
-    {% endfor %}
+    <div class="header">
+        {{ country }}
+    </div>
+    <div style="width: 100%">
+        {% for team in teams %}
+            <div style="display: inline-block; margin:3%">
+                <h4>
+                    <a href="{% url 'team' team_id=team.id %}">
+                        {{ team }}
+                    </a>
+                </h4>
+                <a href="{% url 'team' team_id=team.id %}">
+                    <img src="{{ team.image.url }}" title="{{ team }}" class="logo">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="center-div">
+        <table class="table">
+            <caption class="caption">
+                Игроки из страны {{ country }}
+            </caption>
+            <thead class="thead-inverse">
+            <tr>
+                <th>
+                    Имя
+                </th>
+                <th>
+                    Комада
+                </th>
+            </tr>
+            </thead>
+            {% for player in players %}
+                <tr>
+                    <td>
+                        <a href="{% url 'player' player_id=player.id %}">
+                            {{ player }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'team' team_id=player.team.id %}">
+                            {{ player.team }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

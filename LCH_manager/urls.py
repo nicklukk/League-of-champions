@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^match/(?P<match_id>\w+)/$', views.match, name='match'),
     url(r'^country/(?P<country_name>\w+)/$', views.country, name='country'),
     url(r'^leader_board/(?P<top>\w+)/$', views.leader_board, name='leader_board'),
-    url(r'^matches/$', views.matches, name='matches'),
+    url(r'^matches/(?P<page_num>\w+)/$', views.matches_in_group, name='matches'),
     url(r'^toss/$', views.automatization, name='toss'),
     url(r'^countries/$', views.countries, name='countries'),
 ]

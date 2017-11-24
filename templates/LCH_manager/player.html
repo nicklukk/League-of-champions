@@ -2,15 +2,81 @@
 
 {% load static %}
 {% block content %}
-    <h1>{{ player.name }} {{ player.surname }}</h1>
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet"/>
+    <div class="header">
+        {{ player }}
+    </div>
+    <div class="left-part">
+        <table class="table">
+            <caption class="caption">Информация о игроке {{ player }}</caption>
+            <tr>
+                <td class="bold">
+                    Позиция
+                </td>
+                <td>
+                    {{ player.position }}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Команда
+                </td>
+                <td>
+                    <a href="{% url 'team' team_id=player.team_id %}">
+                        {{ player.team }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Номер игрока
+                </td>
+                <td>
+                    {{ player.number }}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Является ли игрок капитаном
+                </td>
+                <td>
+                    {% if player.is_a_captain %}
+                        <i class="fa fa-check" style="color: #44ff50;"></i>
+                    {% else %}
+                        <i class="fa fa-times" style="color: red;"></i>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    День рождения
+                </td>
+                <td>
+                    {{ player.birthday }}
+                </td>
+            </tr>
+            <tr>
+                <td class="bold">
+                    Родина игрока
+                </td>
+                <td>
+                    <a href="{% url 'country' country_name=player.motherland %}">
+                        {{ player.motherland }}
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="right-part">
+        {% if player.image %}
+            <div>
+                <img src="{{ player.image.url }}" title="{{ player }} image" class="player-image">
+            </div>
+        {% else %}
+            <div>
+                <img src="{% static 'img/osel.jpg' %}" title="{{ player }} image is absent" class="player-image">
+            </div>
+        {% endif %}
+    </div>
 
-    {% if player.image %}
-        <div>
-            <img src="{{ player.image.url }}" alt="">
-        </div>
-    {% else %}
-        <div style="height: 500px; width: 375px">
-            <img src="{% static 'img/osel.jpg' %}" alt="">
-        </div>
-    {% endif %}
 {% endblock %}

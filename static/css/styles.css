@@ -14,6 +14,10 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .opacity-div {
     background: rgba(251, 255, 251, 0.7);
     border-radius: 0;
@@ -76,7 +80,7 @@ div {
     height: 240px;
 }
 
-.long-col{
+.long-col {
     width: 600px;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
@@ -85,16 +89,30 @@ div {
     vertical-align: bottom;
 }
 
-.bottom-line{
+.bottom-line {
     border-bottom: 1px solid;
     padding-top: 5%;
 }
 
-.big-text{
+.big-text {
     font-family: 'Times New Roman', Times, serif;
     font-size: 300%;
 }
 
-.small-col{
+.small-col {
     width: 200px;
+}
+
+.bold {
+    font-weight: bolder;
+}
+
+.player-image {
+    height: 457px;
+    width: 350px;
+}
+
+.center-div {
+    margin-left: auto;
+    margin-right: auto;
 }

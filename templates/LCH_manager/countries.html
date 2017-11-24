@@ -10,17 +10,19 @@
                 {{ country.0 }}
             </a>
         </div>
-        {% for team in country.1 %}
-            <div style="display: inline; margin:3%">
-                <h4>
+        <div style="width: 100%;">
+            {% for team in country.1 %}
+                <div style="display: inline-block; margin:3%">
+                    <h4>
+                        <a href="{% url 'team' team_id=team.id %}">
+                            {{ team }}
+                        </a>
+                    </h4>
                     <a href="{% url 'team' team_id=team.id %}">
-                        {{ team }}
+                        <img src="{{ team.image.url }}" title="{{ team }}" class="logo">
                     </a>
-                </h4>
-                <a href="{% url 'team' team_id=team.id %}">
-                    <img src="{{ team.image.url }}" title="{{ team }}" class="logo">
-                </a>
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     {% endfor %}
 {% endblock %}
