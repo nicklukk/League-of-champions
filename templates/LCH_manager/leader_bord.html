@@ -7,6 +7,13 @@
     <a href="{% url 'leader_board' top=20 %}">Top 20</a><br><br>
     <a href="{% url 'leader_board' top=30 %}">Top 30</a><br><br>
     </span>
+    <form class="form-inline">
+        <div class="form-group mx-sm-3">
+            <label for="inputPassword2" class="sr-only">Password</label>
+            <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">OK</button>
+    </form>
     <div class="container-fluid">
         <table class="table">
             <thead class="thead-inverse">
